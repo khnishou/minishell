@@ -6,7 +6,7 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:01:25 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/18 19:36:42 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/18 19:48:50 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	g_exit_status = 0;
 static void	shell_loop(void)
 {
 	char	*input;
+	t_exe	*exe;
 
 	while (true)
 	{
@@ -30,6 +31,7 @@ static void	shell_loop(void)
 			printf(BLUE"Please feed me :/\n"RESET);
 		else
 			add_history(input);
+		exe = ms_init(input, &g_exit_status);
 	}
 }
 
