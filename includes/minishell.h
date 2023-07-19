@@ -6,7 +6,7 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:02:20 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/19 04:48:53 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/19 05:11:49 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_exe		*ms_init(char *input, int *g_exit_status);
 
 //	utils.c
 size_t		ms_count_char(char *input, char c);
+char		*ms_swapstr(char *src, char *swap, size_t start, size_t len);
 
 //	exit.c
 void		ms_exit(t_error err);
