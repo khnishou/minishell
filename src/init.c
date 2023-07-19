@@ -6,11 +6,30 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:38 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/18 20:01:59 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/19 04:35:04 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*ms_parsing(char *input, int *g_exit_status)
+{
+	size_t	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == TK_S_QUOTE || input[i] == TK_D_QUOTE)
+			i = token_quote(&input, i, input[i], g_exit_status);
+		else if (input[i] == TK_DOLLAR)
+			i = token_dollar(&input, i, g_exit_status);
+		else if (input[i] == TK_LESS && input[i + 1] && input[i + 1] == TK_LESS)
+			i = token_heredoc(&input, i);
+		else
+			i++;
+	}
+	return (input);
+}
 
 t_exe	*ms_init(char *input, int *g_exit_status)
 {
@@ -23,10 +42,12 @@ t_exe	*ms_init(char *input, int *g_exit_status)
 	exe = (t_exe *) malloc(sizeof(t_exe) * (nbr_pipe + 1));
 	if (!exe)
 		ms_exit(MALLOC_ERR);
+	input = ms_parsing(input, g_exit_status);
 	i = 0;
 	while (i <= nbr_pipe)
 	{
 		exe[i].index = i;
+		exe[i].nbr_pipe = nbr_pipe;
 		i++;
 	}
 	free(input);

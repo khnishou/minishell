@@ -6,7 +6,7 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:02:20 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/18 19:58:51 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/19 04:48:53 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,21 @@ enum e_token
 typedef struct s_exe
 {
 	size_t			index;
+	size_t			nbr_pipe;
 }	t_exe;
 
 //	init.c
-t_exe	*ms_init(char *input, int *g_exit_status);
+t_exe		*ms_init(char *input, int *g_exit_status);
 
 //	utils.c
-size_t	ms_count_char(char *input, char c);
+size_t		ms_count_char(char *input, char c);
 
 //	exit.c
-void	ms_exit(t_error err);
+void		ms_exit(t_error err);
+
+//	token.c
+size_t		token_dollar(char **str, int index, int *g_exit_status);
+size_t		token_quote(char **str, size_t i, char token, int *g_exit_status);
+size_t		token_heredoc(char **str, size_t index);
 
 #endif
