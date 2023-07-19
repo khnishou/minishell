@@ -6,7 +6,7 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:54:56 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/19 05:20:13 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/19 05:32:20 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,28 @@ size_t	token_quote(char **str, size_t i, char token, int *g_exit_status)
 
 size_t	token_heredoc(char **str, size_t index)
 {
-	return (index);
+	size_t	start;
+	size_t	i;
+	size_t	tk_count;
+	char	*exit;
+
+	i = index;
+	i += 2;
+	while ((*str)[i] && (*str)[i] == TK_SPACE)
+		i++;
+	start = i;
+	tk_count = 0;
+	while ((*str)[i] && (*str)[i] != TK_SPACE)
+	{
+		if ((*str)[i] == TK_D_QUOTE || (*str)[i] == TK_S_QUOTE)
+			tk_count++;
+		i++;
+	}
+	exit = quote_str_get(ft_substr((*str), start, i - start), tk_count);
+	*str = ms_swapstr(*str, NULL, index, i - index);
+	printf(GREEN);
+	while (ft_strncmp(readline("heredoc>  "), exit, ft_strlen(exit) + 1))
+		;
+	printf(RESET);
+	return (i);
 }
