@@ -6,7 +6,7 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:54:56 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/19 05:07:47 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/19 05:20:13 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ size_t	token_dollar(char **str, int i, int *g_exit_status)
 
 size_t	token_quote(char **str, size_t i, char token, int *g_exit_status)
 {
+	int	loop;
+
+	loop = 1;
+	i++;
+	while (((*str)[i] && (*str)[i] != token) || loop)
+	{
+		loop = 0;
+		if (token == TK_D_QUOTE && (*str)[i] == TK_DOLLAR)
+			i = token_dollar(str, i, g_exit_status);
+		i++;
+	}
+	i++;
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ykerdel <ykerdel@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:30:46 by ykerdel           #+#    #+#             */
-/*   Updated: 2023/07/19 05:10:20 by ykerdel          ###   ########.fr       */
+/*   Updated: 2023/07/19 05:21:41 by ykerdel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,31 @@ char	*ms_swapstr(char *src, char *swap, size_t start, size_t len)
 	while (src[end])
 		res[i++] = src[end++];
 	res[i] = '\0';
+	return (res);
+}
+
+char	*quote_str_get(char *str, size_t tk_count)
+{
+	size_t	i;
+	size_t	j;
+	char	*res;
+
+	res = malloc(sizeof(char) * (ft_strlen(str) - tk_count + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == TK_D_QUOTE || str[i] == TK_S_QUOTE)
+			i++;
+		else
+		{
+			res[j] = str[i];
+			j++;
+			i++;
+		}
+	}
+	res[j] = '\0';
 	return (res);
 }
